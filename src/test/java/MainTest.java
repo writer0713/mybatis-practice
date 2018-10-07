@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * @RunWith(SpringJUnit4ClassRunner.class) 를 사용해야 실제 스프링에 사용되는 빈을 설정하여 불러올수있다
+ * @ContextConfiguration(locations = {...}) 을 사용하여 빈 컨텍스트를 불러오도록 한다
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
 public class MainTest {
