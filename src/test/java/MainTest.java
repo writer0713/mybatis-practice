@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @ContextConfiguration(locations = {...}) 을 사용하여 빈 컨텍스트를 불러오도록 한다
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:WEB-INF/spring/appServlet/servlet-context.xml"})
+@ContextConfiguration(locations = {"classpath:spring/servlet-context.xml"})
 public class MainTest {
 
   @Autowired
