@@ -51,4 +51,14 @@ public class Shop implements Serializable {
   public void setShopStatus(String shopStatus) {
     this.shopStatus = shopStatus;
   }
+
+  @Override
+  public String toString() {
+    return "Shop{" +
+            "shopNo=" + shopNo +
+            ", shopName='" + shopName + '\'' +
+            ", shopLocation='" + shopLocation + '\'' +
+            ", shopStatus='" + shopStatus + '\'' +
+            '}';
+  }
 }
