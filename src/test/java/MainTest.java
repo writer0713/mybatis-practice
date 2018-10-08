@@ -1,7 +1,7 @@
-import com.writer0713.domains.Db;
+import org.junit.Assert;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,10 +15,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class MainTest {
 
   @Autowired
-  Db db;
+  private SqlSessionTemplate sqlSessionTemplate;
 
   @Test
   public void test() {
-    assert(db != null);
+
+    Assert.assertNotNull(this.sqlSessionTemplate);
   }
 }

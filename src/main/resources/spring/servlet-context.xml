@@ -8,8 +8,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-
     <!-- Enables the Spring MVC @Controller programming model -->
     <annotation-driven>
         <message-converters>
@@ -24,7 +22,7 @@
     </annotation-driven>
 
     <context:component-scan base-package="com.writer0713"/>
-    
+
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <resources mapping="/resources/**" location="/resources/"/>
 
@@ -34,14 +32,6 @@
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
 
-    <util:properties id="database" location="classpath:properties/db.properties" />
-
-    <beans:bean id="datasource" class="com.writer0713.domains.Db">
-        <beans:property name="driverclass" value="#{database['driverclass']}" />
-        <beans:property name="url" value="#{database['url']}" />
-        <beans:property name="username" value="#{database['username']}" />
-        <beans:property name="password" value="#{database['password']}" />
-    </beans:bean>
-
+    <beans:import resource="mybatis-context.xml" />
 
 </beans:beans>

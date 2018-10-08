@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.writer0713.persistence.ShopMapper">
+
+    <resultMap id="shopResultMap" type="shop">
+        <id column="SHOP_NO" property="shopNo" />
+        <result column="SHOP_NAME" property="shopName" />
+        <result column="SHOP_LOCATION" property="shopLocation" />
+        <result column="SHOP_STATUS" property="shopStatus" />
+    </resultMap>
+
+    <select id="list" parameterType="shop" resultType="shop">
+      SELECT * FROM SHOP
+      <where>
+          <if test="shopNo > 0">
+              AND SHOP_NO = #{shopNo}
+          </if>
+          <if test="shopStatus != null and shopStatus != ''">
+              AND SHOP_STATUS = #{shopStatus}
+          </if>
+      </where>
+    </select>
+</mapper>
