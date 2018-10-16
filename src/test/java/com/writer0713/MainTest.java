@@ -1,8 +1,12 @@
+package com.writer0713;
+
 import com.writer0713.domains.Shop;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,6 +23,8 @@ import java.util.List;
 @ActiveProfiles({"dev"})
 public class MainTest {
 
+  private static final Logger logger = LoggerFactory.getLogger(MainTest.class);
+
   @Autowired
   private SqlSessionTemplate sqlSessionTemplate;
 
@@ -33,5 +39,14 @@ public class MainTest {
     List<Shop> shopList = this.sqlSessionTemplate.selectList("com.writer0713.persistence.ShopMapper.list", shop);
     shopList.forEach(_shop -> System.out.println(_shop.toString()));
 
+  }
+
+  @Test
+  public void testLogger() {
+
+    this.logger.debug("{}", "debug logging");
+    this.logger.info("{}", "info logging");
+    this.logger.warn("{}", "warn logging");
+    this.logger.error("{}", "error logging");
   }
 }

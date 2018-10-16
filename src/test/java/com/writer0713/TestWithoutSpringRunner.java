@@ -1,3 +1,5 @@
+package com.writer0713;
+
 import com.writer0713.domains.Db;
 import org.junit.Assert;
 import org.junit.Before;
