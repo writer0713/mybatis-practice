@@ -15,7 +15,8 @@ import java.util.Locale;
 public class AnotherController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AnotherController.class);
-	
+
+
 	@RequestMapping(value = "/rest", method = RequestMethod.GET)
 	public String test(Locale locale, Model model) {
 		Date date = new Date();
