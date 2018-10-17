@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,7 +27,15 @@ public class MainTest {
   private static final Logger logger = LoggerFactory.getLogger(MainTest.class);
 
   @Autowired
+  private Environment env;
+
+  @Autowired
   private SqlSessionTemplate sqlSessionTemplate;
+
+  @Test
+  public void testEnv() {
+    logger.info("{}", this.env);
+  }
 
   @Test
   public void testSqlSessionTemplateExists() {
