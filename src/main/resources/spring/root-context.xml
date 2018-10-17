@@ -11,7 +11,4 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <import resource="datasource-context.xml" />
-    <import resource="mybatis-context.xml" />
-
 </beans>
