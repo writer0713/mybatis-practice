@@ -1,15 +1,19 @@
 package com.writer0713.controllers;
 
+import com.writer0713.domains.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Handles requests for the application home page.
@@ -33,5 +37,21 @@ public class HomeController {
 
 		return "home";
 	}
-	
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginGET() {
+
+		return "login";
+	}
+
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String loginPOST(
+					@ModelAttribute User user
+	) {
+
+		return "home";
+	}
+
+
 }

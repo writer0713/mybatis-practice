@@ -10,5 +10,10 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+
+<hr>
+
+<h3>username : ${user.username}</h3>
+<h3>password : ${user.password}</h3>
 </body>
 </html>
