@@ -8,4 +8,8 @@ public interface ShopService {
 
   public List<Shop> find(Shop shop);
 
+  public Shop find(String shopNo);
+
+  public void add(Shop shop);
+
 }

@@ -22,4 +22,16 @@
           </if>
       </where>
     </select>
+
+    <select id="selectWithShopNo" parameterType="string" resultType="shop">
+        SELECT * FROM SHOP
+        WHERE SHOP_NO = #{shopNo}
+    </select>
+
+    <insert id="insert" parameterType="shop">
+        INSERT INTO SHOP
+        (SHOP_NAME, SHOP_LOCATION, SHOP_STATUS)
+        VALUES
+        (#{shopName}, #{shopLocation}, #{shopStatus})
+    </insert>
 </mapper>

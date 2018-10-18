@@ -19,12 +19,12 @@
         <!--<appender-ref ref="consoleAppender"/>-->
     <!--</logger>-->
 
-    <logger name="com.writer0713" level="info" />
+    <logger name="com.writer0713" level="debug" />
 
 
     <!-- root는 글로벌 로거를 의미하며, 위의 logger에 해당하지 않으면 root 로거가 실행된다. -->
     <root level="warn">
         <appender-ref ref="consoleAppender"/>
-    </root>
+    </root> 
 
 </configuration>
