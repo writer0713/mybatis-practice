@@ -1,13 +1,12 @@
 package com.writer0713;
 
-import com.writer0713.domains.Db;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+
+import java.io.IOException;
 
 public class TestWithoutSpringRunner {
 
@@ -15,15 +14,16 @@ public class TestWithoutSpringRunner {
 
     private SimpleDriverDataSource dataSource;
 
-    @Before
-    public void setting() {
-        ac = new ClassPathXmlApplicationContext("spring/mybatis-context.xml");
-    }
-
     @Test
-    public void testDataSourceIsNotNull() {
-        this.dataSource = this.ac.getBean(SimpleDriverDataSource.class);
-        Assert.assertNotNull(this.dataSource);
+    public void testPathMatchingResourceResolver() throws IOException {
+            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = resolver.getResources("spring/*.xml");
+
+        System.out.println(resources.length);
+
+        for(Resource resource : resources) {
+            System.out.println(resource.getURI());
+        }
     }
 
 

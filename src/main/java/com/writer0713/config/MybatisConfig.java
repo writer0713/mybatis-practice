@@ -18,15 +18,21 @@ public class MybatisConfig {
 
   @Bean
   public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
-    PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-    Resource[] resources = resolver.getResources("classpath:mybatis/mappers/*.xml");
-
 
     SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+
+    // setDataSource
     factoryBean.setDataSource(basicDataSource);
+
+    // setTypeAliasesPackage
     factoryBean.setTypeAliasesPackage("com.writer0713.domains");
+
+    // setMapperLocations
+    PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+    Resource[] resources = resolver.getResources("classpath:mybatis/mappers/*.xml");
     factoryBean.setMapperLocations(resources);
 
+    // setConfiguration
     org.apache.ibatis.session.Configuration config = new org.apache.ibatis.session.Configuration();
     config.setMapUnderscoreToCamelCase(true);
     factoryBean.setConfiguration(config);
