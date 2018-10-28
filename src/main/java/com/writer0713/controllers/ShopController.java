@@ -6,8 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.PropertyEditor;
+import java.beans.PropertyEditorSupport;
 import java.util.List;
 
 @Controller
@@ -18,6 +22,24 @@ public class ShopController {
 
   @Autowired
   private ShopService shopService;
+
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    binder.registerCustomEditor(String.class, "shopStatus", new PropertyEditorSupport() {
+
+      @Override
+      public void setAsText(String shopStatus) throws IllegalArgumentException {
+
+        if(StringUtils.isEmpty(shopStatus) || "N".equals(shopStatus) ) {
+          shopStatus = "N";
+        } else {
+          shopStatus = "Y";
+        }
+
+        this.setValue(shopStatus);
+      }
+    });
+  }
 
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   public @ResponseBody List<Shop> list(Shop shop) throws Exception {
