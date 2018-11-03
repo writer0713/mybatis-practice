@@ -1,9 +1,7 @@
 package com.writer0713.domains;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,7 +10,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 @XmlRootElement(name = "user")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(value = XmlAccessType.FIELD)
 public class User {
 
   @Size(min = 4, max = 7, message = "username은 4~7개의 캐릭터가 있어야합니다.")

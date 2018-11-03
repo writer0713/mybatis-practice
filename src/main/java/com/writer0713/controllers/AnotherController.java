@@ -1,6 +1,7 @@
 package com.writer0713.controllers;
 
 import com.writer0713.domains.User;
+import com.writer0713.domains.UserWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,14 +76,31 @@ public class AnotherController {
 	}
 
 	@RequestMapping(value="/user.xml", produces="application/xml")
-	public User getUserXML() {
+	public UserWrapper getUserXML() {
 		User user = new User();
 		user.setUsername("kim");
-		user.setPassword("pass");
+		user.setPassword("kim");
 		user.setBirth(new Date());
 		user.setHobbies(new String[]{"swim"});
 
-		return user;
+		User user1 = new User();
+		user1.setUsername("park");
+		user1.setPassword("park");
+		user1.setBirth(new Date());
+		user1.setHobbies(new String[]{"basketball"});
+
+		User user2 = new User();
+		user2.setUsername("lee");
+		user2.setPassword("lee");
+		user2.setBirth(new Date());
+		user2.setHobbies(new String[]{"health"});
+
+		UserWrapper wrapper = new UserWrapper();
+		wrapper.addUser(user);
+		wrapper.addUser(user1);
+		wrapper.addUser(user2);
+
+		return wrapper;
 	}
 
 	@RequestMapping(value="/user.json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
