@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.Marshaller;
+import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -13,8 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.MimeTypeUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.annotation.Resource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.FileInputStream;
@@ -31,8 +35,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class AnotherControllerTest {
 
+	private final static String XML_FILE_NAME = "classpath:xmlDatas/user.xml";
 	@Autowired
-	private Jaxb2Marshaller marshaller;
+	private Marshaller marshaller;
+
+	@Autowired
+	private Unmarshaller unmarshaller;
 
 	@Autowired
 	private WebApplicationContext cx;
@@ -44,44 +52,27 @@ public class AnotherControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(cx).build();
 	}
 
-
 	@Test
-	public void makeUserToXml() {
-		User user = new User();
-		user.setUsername("kim");
-		user.setPassword("pass");
-		user.setBirth(new Date());
-		user.setHobbies(new String[]{"swim"});
-
-		try (FileOutputStream os = new FileOutputStream("src/main/resources/xmlDatas/user.xml")) {
-			marshaller.marshal(user, new StreamResult(os));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void xmlToUserObject() {
-		User user = null;
-		try (FileInputStream os = new FileInputStream("src/main/resources/xmlDatas/user.xml")) {
-			user = (User) marshaller.unmarshal(new StreamSource(os));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
+	public void testUnMarshall() throws Exception {
+		try (FileInputStream fis = new FileInputStream(ResourceUtils.getFile(XML_FILE_NAME))) {
+			User user = (User) unmarshaller.unmarshal(new StreamSource(fis));
 			System.out.println(user);
 		}
+
 	}
 
 	@Test
-	public void requestUserObj() throws Exception {
-		final ResultActions result = mockMvc.perform(
-				get("/another/user.obj")
-						.accept(MimeTypeUtils.APPLICATION_JSON_VALUE));
+	public void testMarshall() throws IOException {
+		User user = new User();
+		user.setUsername("park");
+		user.setPassword("parkpass");
+		user.setBirth(new Date());
+		user.setHobbies(new String[]{"soccer"});
 
-		result.andExpect(status().isOk());
+		try (FileOutputStream fos = new FileOutputStream(ResourceUtils.getFile(XML_FILE_NAME))) {
+			marshaller.marshal(user, new StreamResult(fos));
+		}
+
 	}
+
 }

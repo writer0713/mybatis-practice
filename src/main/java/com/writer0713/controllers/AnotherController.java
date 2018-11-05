@@ -5,8 +5,9 @@ import com.writer0713.domains.UserWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -21,23 +22,26 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.validation.Valid;
 import javax.xml.transform.stream.StreamSource;
-import java.beans.PropertyEditorSupport;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 @RestController
 @RequestMapping("/another")
+@PropertySource("classpath:properties/user.properties")
 public class AnotherController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AnotherController.class);
 
 	@Autowired
 	private Jaxb2Marshaller marshaller;
+
+	@Value("${papago.name}")
+	private String name;
+
+	@Value("${papago.password}")
+	private String password;
 
 	@InitBinder
 	private void initBinder(WebDataBinder binder) {
@@ -55,8 +59,7 @@ public class AnotherController {
 	}
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public ResponseEntity addUser(@RequestBody @Valid User user,
-																BindingResult result) {
+	public ResponseEntity addUser(@RequestBody @Valid User user, BindingResult result) {
 
 		if(result.hasErrors()) {
 			for(ObjectError err : result.getAllErrors()) {
@@ -73,6 +76,14 @@ public class AnotherController {
 	public ResponseEntity addUser2(@RequestParam String[] hobbies) {
 
 		return ResponseEntity.ok().body(hobbies);
+	}
+
+	@RequestMapping(value = "/papago", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public User getUserFromProperties() {
+		User user = new User();
+		user.setUsername(name);
+
+		return user;
 	}
 
 	@RequestMapping(value="/user.xml", produces="application/xml")
