@@ -1,6 +1,7 @@
 package com.writer0713.controllers;
 
 import com.writer0713.domains.User;
+import com.writer0713.exception.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -51,6 +52,22 @@ public class HomeController {
 	) {
 
 		return "home";
+	}
+
+	@RequestMapping(value = "/customException", method = RequestMethod.GET)
+	public void occurCustomException() throws CustomException {
+
+		logger.error("occur CustomException");
+
+		throw new CustomException("occur Custom Exception");
+	}
+
+	@RequestMapping(value = "/exception", method = RequestMethod.GET)
+	public void occurException() throws Exception {
+
+		logger.error("occur Exception");
+
+		throw new Exception("occur Exception");
 	}
 
 
