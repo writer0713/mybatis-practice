@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.xml.transform.stream.StreamSource;
 import java.io.FileNotFoundException;
@@ -120,6 +121,18 @@ public class AnotherController {
 		System.out.println("User : " + user);
 
 		return user;
+	}
+
+	@RequestMapping(value = "/occurException", method = RequestMethod.GET)
+	public void occurException() throws Exception {
+		throw new Exception("occur Exception and handle it locally");
+	}
+
+	@ExceptionHandler
+	public String handleLocalException(HttpServletRequest req, Exception ex) {
+		logger.error("handle Exception locally");
+
+		return ex.getMessage();
 	}
 
 	@PostConstruct
