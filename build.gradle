@@ -15,11 +15,15 @@ repositories {
     maven { url "http://repo.maven.apache.org/maven2" }
 }
 dependencies {
-    compile(group: 'org.springframework', name: 'spring-webmvc', version: '4.3.0.RELEASE') {
+    compile(group: 'org.springframework', name: 'spring-webmvc', version: '4.1.0.RELEASE') {
         exclude(module: 'commons-logging')
     }
     compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.0.RELEASE'
-    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.6.10'
+    compile group: 'org.springframework', name: 'spring-oxm', version: '4.3.0.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.3.0.RELEASE'
+    compile group: 'org.springframework', name: 'spring-aop', version: '4.3.0.RELEASE'
+    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.2'
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
     compile group: 'javax.inject', name: 'javax.inject', version: '1'

@@ -23,6 +23,9 @@ public class ShopController {
   @Autowired
   private ShopService shopService;
 
+  public ShopController() {
+  }
+
   @InitBinder
   public void initBinder(WebDataBinder binder) {
     binder.registerCustomEditor(String.class, "shopStatus", new PropertyEditorSupport() {

@@ -65,7 +65,6 @@ public class AnotherControllerUnitTest {
     user.setUsername("kim11");
     user.setPassword("password");
     user.setBirth(new Date());
-    user.setMoney(19999999);
 
     ObjectMapper mapper = new ObjectMapper();
     String jsonValue = mapper.writeValueAsString(user);
@@ -73,8 +72,7 @@ public class AnotherControllerUnitTest {
     System.out.println(jsonValue);
 
     MvcResult result = mvc.perform(
-      post("/another/user").content(jsonValue).contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(status().isOk())
+      get("/another/user").content(jsonValue).contentType(MediaType.APPLICATION_JSON_VALUE))
         .andReturn();
 
     Exception ex = result.getResolvedException();

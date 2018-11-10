@@ -1,23 +1,31 @@
 package com.writer0713.domains;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import java.util.Arrays;
 import java.util.Date;
 
+@XmlRootElement(name = "user")
+@XmlAccessorType(value = XmlAccessType.FIELD)
+@XmlType(propOrder = {"hobbies", "birth", "password", "username"})
 public class User {
 
   @Size(min = 4, max = 7, message = "username은 4~7개의 캐릭터가 있어야합니다.")
+  @XmlElement(name = "name")
   private String username;
   private String password;
 
-  @JsonFormat(pattern = "yyyy****MM****dd")
+  @DateTimeFormat(pattern = "yyyy-mm-dd")
   private Date birth;
 
-  @NumberFormat(pattern = "#,###")
-  private long money;
+  private String[] hobbies;
 
   public Date getBirth() {
     return birth;
@@ -43,12 +51,12 @@ public class User {
     this.password = password;
   }
 
-  public long getMoney() {
-    return money;
+  public String[] getHobbies() {
+    return hobbies;
   }
 
-  public void setMoney(long money) {
-    this.money = money;
+  public void setHobbies(String[] hobbies) {
+    this.hobbies = hobbies;
   }
 
   @Override
@@ -57,7 +65,7 @@ public class User {
             "username='" + username + '\'' +
             ", password='" + password + '\'' +
             ", birth=" + birth +
-            ", money=" + money +
+            ", hobbies=" + Arrays.toString(hobbies) +
             '}';
   }
 }
