@@ -4,6 +4,8 @@ import com.writer0713.domains.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,8 +32,6 @@ public class AnotherController {
 	private void initBinder(WebDataBinder binder) {
 		Object target = binder.getTarget();
 		if(target instanceof User) {
-//			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-//			binder.registerCustomEditor(Date.class, "birth", new CustomDateEditor(dateFormat, true));
 			binder.registerCustomEditor(Date.class, "birth", new PropertyEditorSupport() {
 				@Override
 				public void setAsText(String text) throws IllegalArgumentException {
@@ -48,6 +48,27 @@ public class AnotherController {
 				}
 			});
 		}
+	}
+
+	@RequestMapping(value = "/date", method = RequestMethod.GET)
+	public String dateFormat(@DateTimeFormat(pattern = "yyyy**MM**dd") @RequestParam("date") Date date) {
+
+		System.out.println("date : " + date);
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String formattedDate = format.format(date);
+
+		return formattedDate;
+	}
+
+	@RequestMapping(value = "/number", method = RequestMethod.GET)
+	public String dateFormat(@RequestParam("money") Long money) {
+
+		System.out.println("money : " + money);
+
+
+
+		return String.valueOf(money);
 	}
 
 	@RequestMapping(value = "/rest", method = RequestMethod.GET)

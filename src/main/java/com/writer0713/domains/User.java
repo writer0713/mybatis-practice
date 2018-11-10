@@ -1,9 +1,9 @@
 package com.writer0713.domains;
 
-import org.hibernate.validator.constraints.Length;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -13,26 +13,25 @@ public class User {
   private String username;
   private String password;
 
-  @DateTimeFormat(pattern = "yyyy-mm-dd", style = "yyyy, mm, dd")
+  @JsonFormat(pattern = "yyyy****MM****dd")
   private Date birth;
 
+  @NumberFormat(pattern = "#,###")
+  private long money;
+
   public Date getBirth() {
-    System.out.println("set birth :: " + birth);
     return birth;
   }
 
   public void setBirth(Date birth) {
-    System.out.println("set Birth :: " + birth);
     this.birth = birth;
   }
 
   public String getUsername() {
-    System.out.println("get Username :: " + username);
     return username;
   }
 
   public void setUsername(String username) {
-    System.out.println("set Username :: " + username);
     this.username = username;
   }
 
@@ -44,12 +43,21 @@ public class User {
     this.password = password;
   }
 
+  public long getMoney() {
+    return money;
+  }
+
+  public void setMoney(long money) {
+    this.money = money;
+  }
+
   @Override
   public String toString() {
     return "User{" +
             "username='" + username + '\'' +
             ", password='" + password + '\'' +
             ", birth=" + birth +
+            ", money=" + money +
             '}';
   }
 }
